@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import express, { Express, Request, Response } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import mongoose from 'mongoose';

@@ -1,6 +1,10 @@
+import Post from '@/models/Post.model';
+
 const resolvers = {
   Query: {
-    getAllPosts: () => [{ title: 'the test', author: 'shin' }],
+    getAllPosts: async () => {
+      return await Post.find();
+    },
   },
 };
 
