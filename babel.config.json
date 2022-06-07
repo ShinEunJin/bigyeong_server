@@ -1,3 +1,15 @@
 {
-  "presets": ["@babel/preset-typescript"]
+  "presets": ["@babel/preset-typescript"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "extension": [".ts", ".json", ".js"],
+        "alias": {
+          "@": "./src"
+        }
+      }
+    ]
+  ]
 }
