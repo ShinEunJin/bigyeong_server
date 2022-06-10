@@ -6,8 +6,18 @@ const typeDefs = gql`
     title: String
     description: String
   }
+
   type Query {
     getAllPosts: [Post]
+  }
+
+  input PostInput {
+    title: String
+    description: String
+  }
+
+  type Mutation {
+    createPost(post: PostInput): Post
   }
 `;
 
