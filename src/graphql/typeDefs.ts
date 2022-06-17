@@ -1,23 +1,22 @@
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
-  type Post {
+  type Query {
+    photos: [Photo]
+  }
+
+  type Mutation {
+    uploadPhoto(photo: Upload!): Boolean
+  }
+
+  type Photo {
     id: ID
     title: String
     description: String
   }
 
-  type Query {
-    getAllPosts: [Post]
-  }
-
-  input PostInput {
-    title: String
-    description: String
-  }
-
-  type Mutation {
-    createPost(post: PostInput): Post
+  input Upload {
+    uri: String
   }
 `;
 

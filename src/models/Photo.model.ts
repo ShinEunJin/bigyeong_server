@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const PostSchema = new mongoose.Schema({
+const PhotoSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -10,6 +10,6 @@ const PostSchema = new mongoose.Schema({
   },
 });
 
-const Post = mongoose.model('Post', PostSchema);
+const Photo = mongoose.model('Photo', PhotoSchema);
 
-export default Post;
+export default Photo;

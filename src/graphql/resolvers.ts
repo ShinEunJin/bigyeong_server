@@ -1,22 +1,14 @@
-import Post from '@/models/Post.model';
+import Photo from '@/models/Photo.model';
 
 const resolvers = {
   Query: {
-    getAllPosts: async () => {
-      return await Post.find();
+    photos: () => {
+      console.log('query');
     },
   },
   Mutation: {
-    createPost: async (
-      _parent: any,
-      args: { post: { title: string; description: string } },
-      _context: any,
-      _info: any
-    ) => {
-      const { title, description } = args.post;
-      const post = new Post({ title, description });
-      await post.save();
-      return post;
+    uploadPhoto: async (_: any, arg: any) => {
+      console.log('mutation', arg);
     },
   },
 };

@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 
 import typeDefs from './src/graphql/typeDefs';
 import resolvers from './src/graphql/resolvers';
+import upload from './src/middlewares/multer';
 
 dotenv.config();
 
@@ -31,7 +32,7 @@ const startApolloServer = async () => {
   await apolloServer.start();
 
   apolloServer.applyMiddleware({ app });
-
+  // app.use(upload.single('photo'));
   await mongoose
     .connect(MONGO_URL)
     .then(() => console.log('✅ MongoDB is connected'))
