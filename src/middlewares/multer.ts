@@ -1,23 +1,22 @@
 import multer from 'multer';
+import multerS3 from 'multer-s3';
 
-const storage = multer.diskStorage({
-  destination: function (
-    req: any,
-    file: any,
-    cb: (arg0: null, arg1: string) => void
-  ) {
-    cb(null, '/tmp/my-uploads');
-  },
-  filename: function (
-    req: any,
-    file: { fieldname: string },
-    cb: (arg0: null, arg1: string) => void
-  ) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + '-' + uniqueSuffix);
+import aws from '../../aws';
+
+const storage = multerS3({
+  s3: aws.s3,
+  bucket: 'bigyeong',
+  key: (req, file, cb) => {
+    cb(null, `photos/${file.filename}`);
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage,
+  limits: { fileSize: 1024 * 1024 * 5 },
+  // fileFilter: (_req, file, cb) => {
+  //   cb(null, true);
+  // },
+});
 
 export default upload;
