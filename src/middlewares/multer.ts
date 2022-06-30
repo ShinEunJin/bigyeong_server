@@ -21,7 +21,7 @@ const getFileDate = () => {
   const day = date.getDate();
   const hour = date.getHours();
   const minute = date.getMinutes();
-  return `${year}_${month}_${day}_${hour}_${minute}_${uuidv4()}`;
+  return `${year}_${month}_${day}_${hour}_${minute}_${uuidv4().slice(0, 8)}`;
 };
 
 const s3 = new S3Client({

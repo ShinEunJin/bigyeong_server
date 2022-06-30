@@ -1,15 +1,11 @@
-import express, { Request, Response } from 'express';
-
-import upload from './src/middlewares/multer';
+import express from 'express';
+import router from './src/router';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post('/api/v1/photo', upload.single('testFile'), (req, res) => {
-  console.log(req.file);
-  res.json(req.file);
-});
+app.use(router);
 
 export default app;
