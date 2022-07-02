@@ -1,14 +1,29 @@
 import mongoose from 'mongoose';
 
-const PhotoSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
+const PhotoSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+    },
+    location: {
+      type: String,
+    },
+    detailLocation: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
+    imageUri: {
+      type: String,
+    },
+    category: {
+      type: String,
+      enum: ['TODEST', 'TORIDE'],
+    },
   },
-  description: {
-    type: String,
-  },
-});
+  { timestamps: true }
+);
 
 const Photo = mongoose.model('Photo', PhotoSchema);
 
