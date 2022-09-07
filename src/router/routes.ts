@@ -1,9 +1,9 @@
-const PHOTO = '/api/v1/photo';
-const PHOTOS = '/api/v1/photos';
+const BIKE = '/api/v1/bike';
+const BIKES = '/api/v1/bikes';
 
 const routes = {
-  photo: PHOTO,
-  photos: PHOTOS,
+  bike: BIKE,
+  bikes: BIKES,
 };
 
 export default routes;

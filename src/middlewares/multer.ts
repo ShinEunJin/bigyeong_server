@@ -6,13 +6,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 dotenv.config();
 
-declare const process: {
-  env: {
-    AWS_ACCESS_KEY: string;
-    AWS_ACCESS_PASSWORD: string;
-  };
-};
-
 const getFileDate = () => {
   const date = new Date();
   const year = date.getFullYear();
@@ -36,7 +29,7 @@ const storage = multerS3({
   s3,
   bucket: 'bigyeong',
   key: (_req, file, cb) => {
-    cb(null, `photos/app/${getFileDate()}.${file.mimetype.split('/')[1]}`);
+    cb(null, `bike/${getFileDate()}.${file.mimetype.split('/')[1]}`);
   },
 });
 
