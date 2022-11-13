@@ -8,8 +8,8 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "start": "nodemon dist/index.js",
-    "dev": "rm -r ./dist && npx tsc && nodemon --exec ts-node index.ts",
+    "start": "nodemon dist/index.ts",
+    "dev": "rm -r ./dist && npx tsc && export NODE_ENV='development' && nodemon --exec ts-node index.ts",
     "build:dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
