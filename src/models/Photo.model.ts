@@ -12,7 +12,6 @@ const PhotoSchema = new mongoose.Schema(
     },
     writer: {
       type: String,
-      required: true,
     },
     view: {
       type: Number,

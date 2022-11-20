@@ -1,18 +1,49 @@
 import { ObjectId } from 'mongoose';
+import { Request, Response } from 'express';
+import dotenv from 'dotenv';
 
 import Photo from '@/models/Photo.model';
-import { Request, Response } from 'express';
 
-interface PhotoType {
-  _id: ObjectId;
-  imgUrl: string;
+dotenv.config();
+
+interface PhotoInfoType {
   title: string;
-  writer: string;
-  view: number;
   location: string;
   detailLocation: string;
+  writer?: string;
+  view?: number;
 }
 
-export const photoController = async (req: Request, res: Response) => {
-  console.log('success', req.body, req.file);
+interface PhotoType extends PhotoInfoType {
+  _id: ObjectId;
+  imgUrl: string;
+}
+
+export const uploadPhoto = async (req: Request, res: Response) => {
+  const photoInfo: PhotoInfoType = JSON.parse(req.body.photoInfo);
+  const photoFile = req.file;
+
+  const filteredImgUrl =
+    process.env.NODE_ENV === 'development'
+      ? `http://localhost:${process.env.PORT}/${photoFile?.path}`
+      : photoFile?.path;
+
+  const data = {
+    imgUrl: filteredImgUrl,
+    title: photoInfo?.title,
+    location: photoInfo?.location,
+    detailLocation: photoInfo?.detailLocation,
+    writer: photoInfo?.writer || null,
+    view: photoInfo?.view || 0,
+  };
+  const photo = new Photo(data);
+  await photo.save();
+
+  if (photo) return res.json(photo);
+  else return res.send('error');
+};
+
+export const getPhotos = async (req: Request, res: Response) => {
+  const photos = await Photo.find();
+  if (photos) return res.json(photos);
 };
