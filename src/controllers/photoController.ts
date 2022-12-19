@@ -27,7 +27,7 @@ export const uploadPhoto = async (req: Request, res: Response) => {
     process.env.NODE_ENV === 'development'
       ? `http://localhost:${process.env.PORT}/${photoFile?.path}`
       : photoFile?.path;
-
+  console.log(photoFile);
   const data = {
     imgUrl: filteredImgUrl,
     title: photoInfo?.title,
@@ -44,6 +44,19 @@ export const uploadPhoto = async (req: Request, res: Response) => {
 };
 
 export const getPhotos = async (req: Request, res: Response) => {
-  const photos = await Photo.find();
-  if (photos) return res.json(photos);
+  const { skip, limit } = req.query;
+  const photos = await Photo.find().skip(Number(skip)).limit(Number(limit));
+  if (photos && photos.length > 0) return res.json(photos);
+  return res.send(null);
+};
+
+export const getPhoto = async (req: Request, res: Response) => {
+  const { id } = req.query;
+  try {
+    const photo = await Photo.findById(id);
+    if (photo) return res.json(photo);
+    else return res.send(null);
+  } catch (error) {
+    return res.send(undefined);
+  }
 };
